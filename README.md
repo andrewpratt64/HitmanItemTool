@@ -1,6 +1,6 @@
 # HitmanItemTool
  A utility for configuring items in Hitman 3
- Version 0.0.1-Alpha
+ Version 0.0.2-Alpha
  
 DOCUMENTATION AND INSTRUCTIONS ARE A WORK-IN-PROGRESS
 
