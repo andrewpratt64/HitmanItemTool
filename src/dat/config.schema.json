@@ -1,0 +1,237 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "HITConfigSchema",
+	"description": "Json Schema for HIT by Andrew Pratt",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"ready": {
+			"title": "Config is ready",
+			"description": "False if config is not ready, true if config is ready. This is to ensure the user has setup the config before attempting to run HIT.",
+			"type": "boolean",
+			"const": true
+		},
+		"pathHitmanRuntime": {
+			"title": "Hitman Runtime path",
+			"description": "Filepath to the \"HITMAN3/Runtime\" folder",
+			"examples": [
+				"C:/Program Files/Epic Games/HITMAN3/Runtime"
+			],
+			"$ref": "#/$defs/filepathFolder"
+		},
+		"pathRpkgCli": {
+			"title": "rpkg-cli path",
+			"description": "Filepath to rpkg-cli.exe",
+			"examples": [
+				"D:/Modding/Stuff/rpkg/rpkg-cli.exe",
+				"C:/Users/JohnDoe/rpkg-cli.exe"
+			],
+			"$ref": "#/$defs/filepathExe"
+		},
+		"pathOresTool": {
+			"title": "ORESTool path",
+			"description": "Filepath to ORESTool.exe",
+			"examples": [
+				"D:/Modding/Stuff/more-stuff/ORESTool.exe",
+				"C:/Users/JohnDoe/ORESTool.exe"
+			],
+			"$ref": "#/$defs/filepathExe"
+		},
+		"inputPatch": {
+			"title": "Input patch number",
+			"description": "The pre-existing patch number of chunk0 to use. For example, a value of 2 would use chunk0patch2.rpkg",
+			"examples": [
+				2, 47, 99
+			],
+			"$ref": "#/$defs/patchNumber"
+		},
+		"outputPatch": {
+			"title": "Output patch number",
+			"description": "The patch number of the output file. For example, a value of 47 would create chunk0patch47.rpkg",
+			"examples": [
+				47, 99
+			],
+			"$ref": "#/$defs/newPatchNumber"
+		},
+		"replaceAmount": {
+			"title": "Replace amount",
+			"description": "The quantity to replace items with. For example, a value of 100 would cause items to give x100 of themselves",
+			"examples": [
+				1, 47, 100, 200
+			],
+			"$ref": "#/$defs/itemAmount"
+		},
+		"useGetAllItem": {
+			"title": "Use the \"get-all\" item",
+			"description": "The \"get-all\" item is used ONLY when this is true. This item will give every single item in the game when included in the player's loadout",
+			"type": "boolean"
+		},
+		"getAllItemId": {
+			"title": "Get-all item ID",
+			"description": "Value of the \"Id\" property of the get-all item in ORES",
+			"examples": [
+				"TOKEN_FIBERWIRE",
+				"PROP_TOOL_COIN",
+				"PROP_TOOL_COIN_CLASSIC",
+				"PROP_POISON_EMETIC_VIAL_S3",
+				"PROP_DEVICE_ICA_C4_REMOTE_EXPLOSIVE"
+			],
+			"$ref": "#/$defs/itemId"
+		},
+		"replaceAllAmount": {
+			"title": "Get-all item replace amount",
+			"description": "Like replaceAmount, but applies to the get-all item instead. Setting this above one may causse crashes",
+			"examples": [
+				1, 47, 100, 200
+			],
+			"$ref": "#/$defs/itemAmount"
+		},
+		"affectAllItems": {
+			"title": "Affect all items",
+			"description": "When false, items are filtered by the affect property. When true, all items are replaced",
+			"type": "boolean"
+		},
+		"affect": {
+			"title": "Items to affect",
+			"description": "Set of rules to filter which items are filtered",
+			"$ref": "#/$defs/itemAffectArray"
+		}
+	},
+	"required": [
+		"ready",
+		"pathHitmanRuntime",
+		"pathRpkgCli",
+		"pathOresTool",
+		"inputPatch",
+		"outputPatch",
+		"replaceAmount",
+		"useGetAllItem",
+		"getAllItemId",
+		"replaceAllAmount",
+		"affectAllItems",
+		"affect"
+	],
+	"$defs": {
+		"filepathFolder": {
+			"title": "Filepath to folder",
+			"description": "The (usually absolute) filepath of a folder",
+			"examples": [
+				"C:/Users/JohnDoe/Documents/MyCoolFolder",
+				"D:/MyFiles"
+			],
+			"type": "string"
+		},
+		"filepathExe": {
+			"title": "Filepath to exe",
+			"description": "The (usually absolute) filepath of a .exe file",
+			"examples": [
+				"C:/Users/JohnDoe/Documents/MyCoolFolder/MyCoolProgram.exe",
+				"C:/Program Files/Notepad++/notepad++.exe"
+			],
+			"type": "string",
+			"pattern": "^.*\\.exe$"
+		},
+		"patchNumber": {
+			"title": "Patch number",
+			"description": "Number for a specific patch of a chunk in Hitman 3. For example, patchNumber 47 of chunk4 would be the file chunk4patch47.rpkg",
+			"examples": [
+				1,
+				2,
+				47,
+				100
+			],
+			"type": "integer",
+			"exclusiveMinimum": 0,
+			"maximum": 10000
+		},
+		"newPatchNumber": {
+			"title": "New patch number",
+			"description": "A patch number for creating a new rpkg file. Should NOT be the same as a non-modded rpkg file",
+			"examples": [
+				47,
+				100
+			],
+			"type": "integer",
+			"exclusiveMinimum": 2,
+			"maximum": 10000
+		},
+		"itemAmount": {
+			"title": "Item amount",
+			"description": "A scalar quantity of items",
+			"examples": [
+				1,
+				2,
+				47,
+				100
+			],
+			"type": "integer",
+			"exclusiveMinimum": 0,
+			"maximum": 4294967295
+		},
+		"itemId": {
+			"title": "Item Id",
+			"description": "The \"Id\" property of an item in ORES",
+			"examples": [
+				"TOKEN_FIBERWIRE",
+				"PROP_TOOL_COIN",
+				"PROP_TOOL_COIN_CLASSIC",
+				"PROP_POISON_EMETIC_VIAL_S3",
+				"PROP_DEVICE_ICA_C4_REMOTE_EXPLOSIVE"
+			],
+			"type": "string",
+			"minLength": 1
+		},
+		"itemAffectArray": {
+			"title": "Item affect array",
+			"description": "An array of rules for filtering items",
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/itemSelector"
+			}
+		},
+		"itemSelector": {
+			"title": "Item selector",
+			"description": "A description of how to select a set of items",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"type": {
+					"title": "Type",
+					"description": "The type of item to select",
+					"examples": [
+						"*",
+						"weapon",
+						"gear"
+					],
+					"$ref": "#/$defs/itemType"
+				},
+				"subtype": {
+					"title": "Subtype",
+					"description": "The subtype to select",
+					"examples": [
+						"*",
+						"melee",
+						"distraction"
+					],
+					"$ref": "#/$defs/itemSubtype"
+				}
+			},
+			"required": [
+				"type",
+				"subtype"
+			]
+		},
+		"itemType": {
+			"title": "Item type",
+			"description": "Value of the \"Type\" property of an item in ORES. A wildcard \"*\" will match an item of any type",
+			"type": "string",
+			"enum": ["*", "weapon", "gear"]
+		},
+		"itemSubtype": {
+			"title": "Item subtype",
+			"description": "Value of the \"Subtype\" property of an item in ORES. A wildcard \"*\" will match an item of any subtype",
+			"type": "string",
+			"enum": ["*", "tool", "explosive", "distraction", "poison", "pistol", "smg", "assaultrifle", "shotgun", "container", "melee"]
+		}
+	}
+}

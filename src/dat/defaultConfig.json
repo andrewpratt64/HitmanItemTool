@@ -1,0 +1,35 @@
+{
+	"ready": false,
+	"pathHitmanRuntime": "C:/Program Files/Epic Games/HITMAN3/Runtime",
+	"pathRpkgCli": "C:/Modding/Stuff/rpkg/rpkg-cli.exe",
+	"pathOresTool": "D:/Dev/hitman3/rpkg/OREStool.exe",
+	"inputPatch": 2,
+	"outputPatch": 47,
+	"replaceAmount": 10,
+	"useGetAllItem": true,
+	"getAllItemId": "TOKEN_FIBERWIRE",
+	"replaceAllAmount": 1,
+	"affectAllItems": true,
+	"affect": [
+		{
+			"type": "weapon",
+			"subtype": "melee"
+		},
+		{
+			"type": "*",
+			"subtype": "tool"
+		},
+		{
+			"type": "*",
+			"subtype": "explosive"
+		},
+		{
+			"type": "*",
+			"subtype": "distraction"
+		},
+		{
+			"type": "*",
+			"subtype": "poison"
+		}
+	]
+}
